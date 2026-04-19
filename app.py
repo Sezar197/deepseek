@@ -8,17 +8,17 @@ from sklearn.preprocessing import StandardScaler
 # Load models and scaler
 @st.cache_resource
 def load_models():
-    rf = joblib.load('rf_model.pkl')
+    #rf = joblib.load('rf_model.pkl')
     xgb = joblib.load('xgb_model.pkl')
     ann = joblib.load('ann_model.pkl')
     scaler = joblib.load('scaler.pkl')
-    return rf, xgb, ann, scaler
+    return xgb, ann, scaler
 
-rf_model, xgb_model, ann_model, scaler = load_models()
+xgb_model, ann_model, scaler = load_models()
 
 st.set_page_config(page_title="Beam Deflection Predictor", layout="centered")
 st.title("📐 Timoshenko Beam Deflection Predictor")
-st.markdown("Enter the beam properties and load to predict deflection using **Random Forest**, **XGBoost**, and **Neural Network** models.")
+st.markdown("Enter the beam properties and load to predict deflection using **XGBoost**, and **Neural Network** models.")
 
 # Input fields
 col1, col2 = st.columns(2)
@@ -36,13 +36,13 @@ if st.button("Predict Deflection"):
     input_scaled = scaler.transform(input_data)
 
     # Predictions
-    rf_pred = rf_model.predict(input_data)[0]
+    #rf_pred = rf_model.predict(input_data)[0]
     xgb_pred = xgb_model.predict(input_scaled)[0]
     ann_pred = ann_model.predict(input_scaled)[0]
 
     st.subheader("📊 Predicted Deflection")
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Random Forest", f"{rf_pred:.6f}")
+    col2, col3 = st.columns(3)
+    #col1.metric("Random Forest", f"{rf_pred:.6f}")
     col2.metric("XGBoost", f"{xgb_pred:.6f}")
     col3.metric("Neural Network", f"{ann_pred:.6f}")
 
