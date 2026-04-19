@@ -41,7 +41,7 @@ if st.button("Predict Deflection"):
     ann_pred = ann_model.predict(input_scaled)[0]
 
     st.subheader("📊 Predicted Deflection")
-    col2, col3 = st.columns(3)
+    col2, col3 = st.columns(2)
     #col1.metric("Random Forest", f"{rf_pred:.6f}")
     col2.metric("XGBoost", f"{xgb_pred:.6f}")
     col3.metric("Neural Network", f"{ann_pred:.6f}")
